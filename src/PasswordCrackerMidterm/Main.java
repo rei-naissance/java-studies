@@ -19,7 +19,6 @@ public class Main {
         for(int i = 0; i < pass.length(); i++) {
             threads[i] = new Thread(new PasswordCracker(pass, 'a', i));
         }
-        //dont know how to make better
 
         for(int i = pass.length(); i < pass.length()*2; i++) {
             threads[i] = new Thread(new PasswordCracker(pass, 'e', i-pass.length()));
@@ -40,6 +39,12 @@ public class Main {
         for (Thread t : threads) {
             t.start();
         }
+
+        try {
+            for (Thread t : threads ) {
+                t.join();
+            }
+        } catch (InterruptedException e) {}
 
     }
 }

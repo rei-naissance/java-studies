@@ -8,14 +8,10 @@ public class PasswordCracker implements Runnable {
     private int position;
     private int len;
 
-    private static boolean found;
-
     public PasswordCracker(String pass, char vowel,  int position) {
         this.pass = pass;
         this.vowel = vowel;
         this.position = position;
-
-        found = false;
 
         len = pass.length();
         atk = new StringBuilder();
@@ -25,7 +21,7 @@ public class PasswordCracker implements Runnable {
     public synchronized void run() {
         int ctr = 0;
 
-        while(!atk.toString().equals(pass) && !found) {
+        while(!atk.toString().equals(pass) && !Main.found) {
             ctr++;
             int[] res = new int[len];
             int tmp = ctr;
