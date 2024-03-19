@@ -8,6 +8,7 @@ import static java.lang.Math.ceil;
 
 public class Main {
     static List<Integer> list = new ArrayList<>();
+    static Object lock = new Object();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a number: ");
@@ -18,16 +19,15 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             threads[i] = new Thread(new NumRunnable(i * interval + 1, interval * (i + 1)));
         }
-        
-        for (Thread thread : threads) {
-            thread.start();
-        }
 
-        try {
+        synchronized (lock) {
             for (Thread thread : threads) {
-                thread.join();
+                try {
+                    thread.start();
+                    lock.wait();
+                } catch (InterruptedException e) {}
             }
-        } catch (InterruptedException e) {}
+        }
 
         System.out.println("Numbers divisible by 1000 from 1 to " + n + ": ");
         for (int i : list) {

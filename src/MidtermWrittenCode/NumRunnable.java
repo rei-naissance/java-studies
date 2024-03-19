@@ -19,5 +19,9 @@ public class NumRunnable implements Runnable {
                 }
             }
         }
+
+        synchronized (Main.lock) {
+            Main.lock.notify();
+        }
     }
 }
