@@ -23,11 +23,17 @@ public class Main {
             thread.start();
         }
 
-        try {
-            for (Thread thread : threads) {
+//        try {
+//            for (Thread thread : threads) {
+//                thread.join();
+//            }
+//        } catch (InterruptedException e) {}
+
+        for (Thread thread : threads) {
+            try {
                 thread.join();
-            }
-        } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {}
+        }
 
         System.out.println("Numbers divisible by 1000 from 1 to " + n + ": ");
         for (int i : list) {

@@ -12,12 +12,10 @@ public class NumRunnable implements Runnable {
 
     @Override
     public void run() {
-        synchronized (Main.list) {
-            for (int i = start; i <= end; i++) {
+        for (int i = start; i <= end; i++) {
+            if (i % 1000 == 0) {
                 synchronized (Main.list) {
-                    if (i % 1000 == 0) {
-                        Main.list.add(i);
-                    }
+                    Main.list.add(i);
                 }
             }
         }
