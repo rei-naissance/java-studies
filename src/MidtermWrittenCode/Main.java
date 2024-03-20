@@ -29,10 +29,7 @@ public class Main {
             }
         }
 
-        System.out.println("Numbers divisible by 1000 from 1 to " + n + ": ");
-        for (int i : list) {
-            System.out.print(i + "\n");
-        }
+        System.out.println("Numbers divisible by 1000 from 1 to " + n + ": " + list);
     }
 
 }
