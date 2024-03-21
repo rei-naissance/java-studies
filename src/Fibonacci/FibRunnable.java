@@ -1,29 +1,29 @@
 package Fibonacci;
 
 public class FibRunnable implements Runnable {
-    int num;
+    int n;
 
-    public FibRunnable(int num) {
-        this.num = num;
+    public FibRunnable(int n) {
+        this.n = n;
     }
 
     @Override
     public void run() {
         try {
-            if (num == 0) {
+            if (n == 0) {
                 Main.sequence[0] = 0;
-            } else if (num == 1) {
+            } else if (n == 1) {
                 Main.sequence[1] = 1;
-                Main.threads[num - 1].start();
-                synchronized (Main.threads[num - 1]) {
-                    Main.threads[num - 1].join();
+                Main.threads[n - 1].start();
+                synchronized (Main.threads[n - 1]) {
+                    Main.threads[n - 1].join();
                 }
             } else {
-                Main.threads[num - 1].start();
-                synchronized (Main.threads[num - 1]) {
-                    Main.threads[num - 1].join();
+                Main.threads[n - 1].start();
+                synchronized (Main.threads[n - 1]) {
+                    Main.threads[n - 1].join();
                 }
-                Main.sequence[num] = Main.sequence[num - 1] + Main.sequence[num - 2];
+                Main.sequence[n] = Main.sequence[n - 1] + Main.sequence[n - 2];
             }
         } catch (InterruptedException e) {}
     }
