@@ -8,9 +8,9 @@ public class Main {
     public static int[] sequence;
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of elements to be displayed: ");
-        int size = sc.nextInt();
+        int size = scanner.nextInt();
 
         threads = new Thread[size];
         sequence = new int[size];

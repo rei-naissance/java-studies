@@ -11,9 +11,9 @@ public class FibRunnable implements Runnable {
     public void run() {
         try {
             if (n == 0) {
-                Main.sequence[0] = 0;
+                Main.sequence[n] = n;
             } else if (n == 1) {
-                Main.sequence[1] = 1;
+                Main.sequence[n] = n;
                 Main.threads[n - 1].start();
                 synchronized (Main.threads[n - 1]) {
                     Main.threads[n - 1].join();

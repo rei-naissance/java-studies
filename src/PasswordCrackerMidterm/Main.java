@@ -4,47 +4,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static ArrayList<Thread> trd = new ArrayList<>();
-    static boolean found = false;
+    private static final char[] vowels = {'a','e','i','o','u'};
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter your password: ");
-        String pass = sc.nextLine();
+        System.out.print("Enter password: ");
+        PasswordCracker.password = scanner.nextLine();
 
-        int threadSize = pass.length() * 5;
+        int ctr = 1;
 
-        Thread[] threads = new Thread[threadSize];
-
-        for(int i = 0; i < pass.length(); i++) {
-            threads[i] = new Thread(new PasswordCracker(pass, 'a', i));
-        }
-
-        for(int i = pass.length(); i < pass.length()*2; i++) {
-            threads[i] = new Thread(new PasswordCracker(pass, 'e', i-pass.length()));
-        }
-
-        for(int i = pass.length()*2; i < pass.length()*3; i++) {
-            threads[i] = new Thread(new PasswordCracker(pass, 'i', i-pass.length()*2));
-        }
-
-        for(int i = pass.length()*3; i < pass.length()*4; i++) {
-            threads[i] = new Thread(new PasswordCracker(pass, 'o', i-pass.length()*3));
-        }
-
-        for(int i = pass.length()*4; i < pass.length()*5; i++) {
-            threads[i] = new Thread(new PasswordCracker(pass, 'u', i-pass.length()*4));
-        }
-
-        for (Thread t : threads) {
-            t.start();
-        }
-
-        try {
-            for (Thread t : threads ) {
-                t.join();
+        ArrayList<Thread> threads = new ArrayList<>(); // arraylist for checker threads
+        for(int i=0; i < PasswordCracker.password.length(); i++){ // iterate (password length) number of times
+            for(int j=0; j < 5; j++){ // iterate through VOWELS array
+                PasswordCracker c = new PasswordCracker(vowels[j], i, ctr);
+                ctr++;
+                Thread thread = new Thread(c);   // make new thread from checker
+                threads.add(thread);      // add thread to array list
+                thread.start();                  // start the thread
             }
-        } catch (InterruptedException e) {}
-
+        }
+        for( Thread t : threads){
+            try {
+                t.join();
+            } catch (InterruptedException e) {}
+        }
+        // ^^^^ wait for all threads to finish
     }
+
 }
