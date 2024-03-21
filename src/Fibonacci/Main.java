@@ -5,17 +5,17 @@ import java.util.Scanner;
 
 public class Main {
     public static Thread[] threads;
-    public static Integer[] sequence;
+    public static int[] sequence;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the number of elements in the Fibonacci sequence: ");
+        System.out.print("Enter the number of elements to be displayed: ");
         int size = sc.nextInt();
 
         threads = new Thread[size];
-        sequence = new Integer[size];
+        sequence = new int[size];
 
-            for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             threads[i] = new Thread(new FibRunnable(i));
         }
 
@@ -23,9 +23,7 @@ public class Main {
 
         try {
             threads[size - 1].join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (InterruptedException e) {}
 
         System.out.println(Arrays.toString(sequence));
     }
